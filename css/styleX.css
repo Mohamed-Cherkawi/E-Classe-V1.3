@@ -1,0 +1,154 @@
+  .active {
+    background-color: #00C1FE !important;
+  } 
+  /* Students Tables */
+  .t-rows {
+    border: transparent ;
+  }
+
+  #sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin 0.25s ease-out;
+    -moz-transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-out;
+    transition: margin 0.25s ease-out;
+  }
+ 
+  
+  #sidebar-wrapper .list-group {
+    width: 15rem;
+  }
+  
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+  }
+  
+  #menu-toggle {
+    cursor: pointer;
+  }
+  
+  .list-group-item {
+    border: none;
+    padding: 20px 30px;
+  }
+  
+ 
+  
+  @media (min-width: 768px) {
+    #sidebar-wrapper {
+      margin-left: 0;
+    }
+  
+    #page-content-wrapper {
+      min-width: 0;
+      width: 100%;
+    }
+  
+    #wrapper.toggled #sidebar-wrapper {
+      margin-left: -15rem;
+    }
+  }
+  /* My styls begins here */
+.aside-bar-links {
+    border-radius: 10px  !important;
+}
+.ms-6 {
+    margin-left: 4rem ;
+}
+.ms-7 {
+    margin-left: 5rem ;
+}
+.mt-6 {
+    margin-top: 10rem ;
+}
+.mt-9 {
+    margin-top: 13rem;
+}
+@media  screen and (max-width : 991px) {
+    .navb-inp {
+        margin-top: 10px !important;
+    }
+}
+/* Cards Titles Costumizations */
+@media  screen and (max-width : 1181px) {
+  .price {
+    font-size: 0.9rem ;
+  }
+  .price1 {
+    font-size: 1.5rem !important ;
+  } 
+  .payments-c {
+    height: 185px;
+  }
+}
+/* Costum the billy notfication icon */
+
+
+@media  screen and (max-width :890px){
+  .input-group {
+    width: 80% !important;
+  }
+  .not-but {
+    position: relative;
+    left: 270px;
+    bottom: 37px;
+  }
+
+}
+@media  screen and (max-width :412px) {
+  #sidebar-wrapper {
+    height: auto;
+  }
+}
+@media  screen and (max-width :321px) {
+  .not-but {
+    left: 228px;
+  }
+}
+/**************** Table CSS ********************/
+
+.tableC{
+  height: 530px; !important
+}
+@media  screen and (max-width :429px){
+ 
+ .tableC{
+  max-width:350px;
+  height:450px ;
+ }
+ .uC{
+  text-align: center;
+   flex-direction: column; !important
+ }
+
+}
+
+
+
+
+/* 
+m - sets margin
+p - sets padding
+Where sides is one of:
+
+t - sets margin-top or padding-top
+b - sets margin-bottom or padding-bottom
+s - sets margin-left or padding-left
+e - sets margin-right or padding-right
+x - sets both padding-left and padding-right or margin-left and margin-right
+y - sets both padding-top and padding-bottom or margin-top and margin-bottom
+blank - sets a margin or padding on all 4 sides of the element
+Where size is one of:
+
+0 - sets margin or padding to 0
+1 - sets margin or padding to .25rem
+2 - sets margin or padding to .5rem
+3 - sets margin or padding to 1rem
+4 - sets margin or padding to 1.5rem
+5 - sets margin or padding to 3rem
+auto - sets margin to auto
+
+*/
+  

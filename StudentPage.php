@@ -10,11 +10,11 @@ if(isset($_POST['submit'])) {
   $sql = "INSERT INTO `students`( `Name`, `Email`, `Phone`, `EmailNumber`, `DateOfAdmission`)
    VALUES ('  $Name','$Email',$Phone ,'$EmailNumber','$DateofAdmission')"  ;
   $result = mysqli_query($con,$sql) ;
-  if($result) {
-    echo  'Data inserted Successfully';
-  }else {
+  if(!$result) {
     die(mysqli_error($con)) ;
   }
+    
+  
 }
 ?>
 
@@ -123,31 +123,56 @@ if(isset($_POST['submit'])) {
                           <tr>
                               <td style="display: none;"></td>
                           </tr>
-                        <tr class="bg-white t-rows">    
-                            <td>
-                              <img  src="images/image.jpg" alt="Groupe of Students" width="80">
-                            </td>
-                            <td class="p-3 align-middle">
-                            </td>
-                            <td class="p-3 align-middle">
-                            </td>
-                            <td class="p-3 align-middle">
-                            </td>
-                            <td class="p-3 align-middle">
-                            </td>
-                            <td class="p-3 align-middle">
-                            </td>
-                            <td class="p-3 align-middle">
-                             <a href="#"> <i class="bi bi-pencil fs-4 text-info"></i> </a> 
-                             
-                            </td>
-                            <td class="p-3 align-middle" >
-                            <a href="#"> <i class="bi bi-trash fs-4 ms-4 text-info"></i></a>
-                            </td>
+                          <?php
+
+                          $sql = "SELECT * from `students` " ;
+                          $result = mysqli_query($con,$sql);
+                          if($result){
+                            while($row=mysqli_fetch_assoc($result)) {
+                              $id = $row['id'] ;
+                              $Name = $row['Name'] ;
+                              $Email =  $row['Email'] ;
+                              $Phone = $row['Phone'] ;
+                              $EmailNumber = $row['EmailNumber'] ;
+                              $DateOfAdmission = $row['DateOfAdmission'] ; 
+                              echo '
+                              
+                              <tr class="bg-white t-rows">    
+                              <td>
+                             <img  src="images/image.jpg" alt="Groupe of Students" width="80"> 
+                              </td>
+                              <td class="p-3 align-middle">
+                              '. $Name .'
+                              </td>
+                              <td class="p-3 align-middle">
+                              '. $Email .'
+                              </td>
+                              <td class="p-3 align-middle">
+                              '. $Phone .'
+                              </td>
+                              <td class="p-3 align-middle">
+                              '. $EmailNumber .'
+                              </td>
+                              <td class="p-3 align-middle">
+                              '.$DateOfAdmission .'
+                              </td>
+                              <td class="p-3 align-middle">
+                               <a href="UpdateStudent.php?updated='.$id.'"> <i class="bi bi-pencil fs-4 text-info"></i> </a> 
+                               
+                              </td>
+                              <td class="p-3 align-middle" >
+                              <a href="DeleteStudent.php?deleteid= '.$id .'" > <i class="bi bi-trash fs-4 ms-4 text-info"></i></a>
+                              </td>
+                          </tr>
+                        <tr>
+                            <td></td>
                         </tr>
-                      <tr>
-                          <td></td>
-                      </tr>
+                              
+                              ' ; 
+                            }
+                          }
+                       
+                      ?>
                       
       
                                   

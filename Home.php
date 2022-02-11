@@ -1,3 +1,30 @@
+<?php 
+     include 'connect.php' ;
+     // First Query gives me the total of students using the Count function
+     $query_1 = "SELECT COUNT(id) AS 'TotalStudents' FROM `students`";
+     $result_1 = mysqli_query($con,$query_1) ;
+     $data_1 = mysqli_fetch_assoc($result_1);
+     $TotalStudents = $data_1['TotalStudents'] ;  
+
+     // Second query gives me the Sum of the Amount Payments using the SUM function
+     $query_2 = "SELECT SUM(AmountPaid) AS 'TotalPayments' FROM `payments`";
+     $result_2 = mysqli_query($con,$query_2) ;
+     $data_2 = mysqli_fetch_assoc($result_2);
+     $TotalPayments = $data_2['TotalPayments'] ; 
+
+    // Third Query gives me the total of courses using the Count function
+     $query_3 = "SELECT COUNT(id) AS 'TotalCourses' FROM `course`";
+     $result_3 = mysqli_query($con,$query_3) ;
+     $data_3 = mysqli_fetch_assoc($result_3);
+     $TotalCourses = $data_3['TotalCourses'] ; 
+
+    if(!$result_1 || !$result_2 || !$result_3 ) {
+
+      die(mysqli_error($con)) ;
+
+    }
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,11 +41,6 @@
     <style>
     
             <?php include 'Webkit.php' ; 
-            
-            
-            
-            
-            
             ?>
 </style>
 </head>
@@ -27,7 +49,9 @@
    
     <div class="d-flex" id="wrapper">
             
-     <?php include 'sidebar.php';
+    <?php
+
+     include 'sidebar.php';
          echo '<!-- Page Content -->
          <div id="page-content-wrapper" style="background: #FFFFFF;">' ;
            include 'navbar.php';
@@ -42,7 +66,7 @@
                                 <i class="bi bi-mortarboard fs-1 text-info"></i>
                                 <p class="fs-5 mt-2 text-secondary">Students</p>
                                 <div class="d-flex justify-content-end">
-                                <h3 class="fs-2 fw-5 ">720</h3>
+                                <h3 class="fs-2 fw-5 "><?php echo  $TotalStudents ; ?></h3>
                                </div>
                             </div>
                             
@@ -55,7 +79,7 @@
                                 <i class="bi bi-bookmark fs-1  p-3 " style="color: #EE95C5;"></i>
                                 <p class="fs-5 mt-2 text-secondary">Course</p>
                                 <div class="d-flex justify-content-end">
-                                <h3 class="fs-2 fw-5 ">13</h3>
+                                <h3 class="fs-2 fw-5 "><?php echo $TotalCourses ; ?></h3>
                                </div>
                             </div>
                             
@@ -70,7 +94,7 @@
                                 <div class="d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
                                     <h3 class=" me-1 price h6">DHS</h3>
-                                <h3 class="fs-2 fw-5 price1 h5">556,000</h3>
+                                <h3 class="fs-2 fw-5 price1 h5"><?php echo $TotalPayments ; ?></h3>
                                </div>
                             </div>
                             </div>

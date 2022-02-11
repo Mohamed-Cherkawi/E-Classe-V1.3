@@ -15,7 +15,7 @@
             <div class="list-group list-group-flush " style="text-align : center;">
                 <a href="Home.php" class="list-group-item list-group-item-action active w-75 second-text ms-3  aside-bar-links ps-4 mb-2">
                     <i class="bi  bi-house "></i>  Home</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-transparent w-75 second-text ms-3  aside-bar-links ps-4 mb-2">
+                    <a href="course.php" class="list-group-item list-group-item-action bg-transparent w-75 second-text ms-3  aside-bar-links ps-4 mb-2">
                         <i class="bi bi-bookmark"></i>  Course</a>
                         <a href="StudentPage.php" class="list-group-item list-group-item-action bg-transparent w-75 second-text ms-3  aside-bar-links ps-4 mb-2 ">
                             <i class="bi bi-mortarboard"></i>  Students</a>

@@ -1,25 +1,57 @@
 <?php
 
-include 'connect.php';
+include 'connect.php'; //Connection database file included *
+
 $id = $_GET['updateid'];
+
+// Display The Values already filled on the ADDStudents's Form
+
+$Fquery = "Select * from `students` where id=$id" ;
+
+/*  The mysql_query() function executes a query on a MySQL database.
+        Arguments :  FirstA(Specifies the MySQL connection) || SecondA(Specifies the SQL query to send)
+        This function returns the query handle for SELECT queries, TRUE/FALSE for other queries, or FALSE on failure.  */
+
+$Result = mysqli_query($con,$Fquery);
+
+/* The mysqli_fetch_assoc() function fetches a result row as an associative array.
+Argument : result of the Query
+*/
+$row = mysqli_fetch_assoc($Result) ;
+
+$Name =         $row['Name'];
+$Email =        $row['Email'];
+$Phone =        $row['Phone'];
+$EmailNumber =  $row['EmailNumber'];
+
+/* The isset() function checks whether a variable is set, which means that it has to be 
+        declared and is not NULL.  This function returns true if the variable exists and is not NULL, otherwise it returns false.
+        Arguments : One variable to check or multiple but it returns true only if they all exist 
+        Return Value : TRUE if variable exists and is not NULL, FALSE otherwise 
+        Return Type : boolean */
 if (isset($_POST['submit'])) {
 
-    $Name = $_POST['Name'];
-    $Email = $_POST['Email'];
-    $Phone =  $_POST['Phone'];
-    $EmailNumber = $_POST['EmailNumber'];
-    $sql = "update `students` set id=$id,Name='$Name',Email='$Email',Phone='$Phone',
-  EmailNumber='$EmailNumber'
-  where id=$id";
-    $result = mysqli_query($con, $sql);
+$Name =         $_POST['Name'];
+$Email =        $_POST['Email'];
+$Phone =        $_POST['Phone'];
+$EmailNumber =  $_POST['EmailNumber'];
+
+  // Updating our values to a new ones using this update query 
+
+$Squery = "update `students` set id=$id,Name='$Name',Email='$Email',Phone='$Phone', EmailNumber='$EmailNumber'
+                                                where id=$id";
+
+    $result = mysqli_query($con, $Squery);
     if ($result) {
+
         header("location: StudentPage.php");
+
     } else {
+
         die(mysqli_error($con));
+
     }
 }
-
-
 
 ?>
 <!DOCTYPE html>
@@ -40,31 +72,29 @@ if (isset($_POST['submit'])) {
 
 <body>
     <form method="POST" class="container mt-5">
-        <input type="hidden" name="id" value="<?php echo $id ?>">
         <div class="form-group mb-3">
             <label for="formGroupExampleInput">Entrez Le nom d'étudiant</label>
-            <input type="text" name ="Name" class="form-control" id="formGroupExampleInput" placeholder="Nom">
+            <input type="text" name ="Name" class="form-control" id="formGroupExampleInput" placeholder="Nom" value="<?php echo $Name ?>">
         </div>
         <div class="form-grou mb-3">
             <label for="formGroupExampleInput2">Entrez L'émail d'étudiant</label>
-            <input type="email" name = "Email" class="form-control" id="formGroupExampleInput2" placeholder="Email">
+            <input type="email" name = "Email" class="form-control" id="formGroupExampleInput2" placeholder="Email" value="<?php echo  $Email ?>">
         </div>
         <div class="form-group mb-3">
             <label for="formGroupExampleInput2">Entrez Le numero d'étudiant</label>
-            <input type="text" name="Phone" class="form-control" id="formGroupExampleInput2" placeholder="NumeroEmail">
+            <input type="text" name="Phone" class="form-control" id="formGroupExampleInput2" placeholder="NumeroEmail" value="<?php echo $Phone ?>">
         </div>
         <div class="form-group mb-3">
             <label for="formGroupExampleInput2">Entrez Le numero d'email d'étudiant</label>
-            <input type="number" name="EmailNumber" class="form-control" id="formGroupExampleInput2" placeholder="Email">
+            <input type="number" name="EmailNumber" class="form-control" id="formGroupExampleInput2" placeholder="Email" value="<?php echo $EmailNumber  ?>">
         </div>
         
-        <button type="submit" class="btn btn-info w-100 " name="submit">Submit</button>
+        <button type="submit" class="btn btn-info w-100 " name="submit">Save</button>
 
 
     </form>
 
     <script src="js/E-classe-Project.js"></script>
-    <script src="js/toogleSide.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 

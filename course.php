@@ -1,29 +1,28 @@
+
 <?php
 
 include 'connect.php' ;
 
-if(isset($_POST['submit'])) { // If users submits 
+if(isset($_POST['submit'])) {
 
-  $Name =             $_POST['Name'] ;
-  $Email =            $_POST['Email'] ;
-  $Phone =            $_POST['Phone'] ;
-  $EmailNumber =      $_POST['EmailNumber'] ;
-  $DateofAdmission =  $_POST['DateOfAdmission'] ;
+  $Name =       $_POST['Name'] ;
+  $Type =       $_POST['Type'] ;
+  $Language =   $_POST['Language'] ;
+  $Price =      $_POST['Price'] ;
+  $Duration =   $_POST['Duration'] ;
 
-  $sql = " INSERT INTO `students`( `Name`, `Email`, `Phone`, `EmailNumber`, `DateOfAdmission`)
-   VALUES ('  $Name','$Email',$Phone ,'$EmailNumber','$DateofAdmission')"  ;
+  $sql = "INSERT INTO `course`( `Name`, `Type`, `Language`, `Price`, `Duration`)
+   VALUES ('  $Name','$Type','$Language' ,'$Price','$Duration')"  ;
 
-  $result = mysqli_query($con,$sql) ; //
+  $result = mysqli_query($con,$sql) ;
 
   if(!$result) {
+
     die(mysqli_error($con)) ;
-  }
     
-  
+  }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,9 +39,6 @@ if(isset($_POST['submit'])) { // If users submits
   <link rel="stylesheet" href="css/styleX.css">
   <title>Student Page</title>
 </head>
-<style>
-   <?php include 'Webkit.php' ; ?>
-</style>
 
 <body>
 <div class="d-flex" id="wrapper">
@@ -57,12 +53,12 @@ if(isset($_POST['submit'])) { // If users submits
                 <main  style="background-color: #e5e5e58f;"> 
                   <div class="container-fluid overflow-auto">
                       <div class="py-3 border-bottom border-5 d-flex justify-content-between uC">
-                      <h2 class="fw-bold">Students List</h2>
+                      <h2 class="fw-bold">Courses</h2>
                       <div>
                       <i class="bi bi-chevron-expand fs-4 text-info me-4 col-md-2"></i>
                       <!-- Button trigger modal -->
       <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-       ADD NEW STUDENT
+       ADD NEW COURSE
       </button>
       
       <!--             Modal  Start           -->
@@ -76,24 +72,24 @@ if(isset($_POST['submit'])) { // If users submits
             <div class="modal-body">
             <form   method="POST" >
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Entrez Le nom d'étudiant</label>
+            <label for="exampleFormControlInput1" class="form-label">Entrez Le nom du cours</label>
             <input type="text" name="Name" placeholder="Nom..." class="form-control" id="exampleFormControlInput1">
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Entrez L'émail d'étudiant</label>
-            <input type="email" name="Email" value="@gmail.com" class="form-control" id="exampleFormControlInput1">
+            <label for="exampleFormControlInput1" class="form-label">Entrez Le Type</label>
+            <input type="text" name="Type" class="form-control" id="exampleFormControlInput1">
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Entrez Le numero d'étudiant</label>
-            <input type="number" name="Phone" class="form-control" id="exampleFormControlInput1">
+            <label for="exampleFormControlInput1" class="form-label">Entrez Le Language du cours</label>
+            <input type="text" name="Language" class="form-control" id="exampleFormControlInput1">
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Entrez Le numero d'email d'étudiant</label>
-            <input type="number" name="EmailNumber" class="form-control" id="exampleFormControlInput1">
+            <label for="exampleFormControlInput1" class="form-label">Entrez Le Prix du cours</label>
+            <input type="number" name="Price" class="form-control" id="exampleFormControlInput1">
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Entrez La Date</label>
-            <input type="date" name="DateOfAdmission" class="form-control" id="exampleFormControlInput1">
+            <label for="exampleFormControlInput1" class="form-label">Entrez La Durée du cours</label>
+            <input type="text" name="Duration" class="form-control" id="exampleFormControlInput1">
           </div>
       
           <div class="mb-3" style="text-align: center;" >
@@ -110,85 +106,70 @@ if(isset($_POST['submit'])) { // If users submits
           </div>
         </div>
       </div>
-
-            <!--             Modal  End           -->
-
-      
-                      </div>
-                     </div>
+      </div>
+             </div>
+            <!--             Modal  End           --> 
+                      
                     <div class="overflow-auto tableC">
                      <table class="table">
                       <tbody class="border-top-0">
                           <tr>
-                          <td></td>
                           <td  class="text-secondary p-3">Name</td>
-                          <td  class="text-secondary p-3">Email</td>
-                          <td  class="text-secondary p-3">Phone</td>
-                          <td  class="text-secondary p-3">Email Number</td>
-                          <td  class="text-secondary p-3" colspan="2">Date of admission</td>
-                           
+                          <td  class="text-secondary p-3">Type</td>
+                          <td  class="text-secondary p-3">Language</td>
+                          <td  class="text-secondary p-3">Price</td>
+                          <td  class="text-secondary p-3">Duration</td>                           
                           </tr>
                           <tr>
                               <td style="display: none;"></td>
                           </tr>
                           <?php
 
-                          $sql = "SELECT * from `students` " ;
-
+                          $sql = "SELECT * from `course` " ;
                           $result = mysqli_query($con,$sql);
-
                           if($result){
-
                             while($row=mysqli_fetch_assoc($result)) {
-                              
-                              $id =              $row['id'] ;
-                              $Name =            $row['Name'] ;
-                              $Email =           $row['Email'] ;
-                              $Phone =           $row['Phone'] ;
-                              $EmailNumber =     $row['EmailNumber'] ;
-                              $DateOfAdmission = $row['DateOfAdmission'] ; 
 
+
+                              $id =         $row['id'] ;
+                              $Name =       $row['Name'] ;
+                              $Type =       $row['Type'] ;
+                              $Language =   $row['Language'] ;
+                              $Price =      $row['Price'] ;
+                              $Duration =   $row['Duration'] ; 
                               echo '
                               
                               <tr class="bg-white t-rows">    
-                              <td>
-                             <img  src="images/image.jpg" alt="Groupe of Students" width="80"> 
-                              </td>
                               <td class="p-3 align-middle">
                               '. $Name .'
                               </td>
                               <td class="p-3 align-middle">
-                              '. $Email .'
+                              '. $Type .'
                               </td>
                               <td class="p-3 align-middle">
-                              '. $Phone .'
+                              '. $Language .'
                               </td>
                               <td class="p-3 align-middle">
-                              '. $EmailNumber .'
+                              '. $Price .'
                               </td>
                               <td class="p-3 align-middle">
-                              '.$DateOfAdmission .'
+                              '.$Duration .'
                               </td>
                               <td class="p-3 align-middle">
-                               <a href="UpdateStudent.php?updateid='.$id.'"> <i class="bi bi-pencil fs-4 text-info"></i> </a> 
-                               
-                              </td>
-                              <td class="p-3 align-middle" >
-                              <a href="DeleteStudent.php?deleteid='.$id .'" > <i class="bi bi-trash fs-4 ms-4 text-info"></i></a>
-                              </td>
+                              <a href="UpdateCourse.php?updateid='.$id.'"> <i class="bi bi-pencil fs-4 text-info"></i> </a> 
+                              
+                             </td>
+                             <td class="p-3 align-middle" >
+                             <a href="deleteCourse.php?deleteid='.$id .'" > <i class="bi bi-trash fs-4 ms-4 text-info"></i></a>
+                             </td>
                           </tr>
-                        <tr>
-                            <td></td>
-                        </tr>
+                       
                               
                               ' ; 
                             }
                           }
                        
-                      ?>
-                      
-      
-                                  
+                      ?>           
                       </tbody>
                     </table>
                     </div> 
@@ -198,12 +179,7 @@ if(isset($_POST['submit'])) { // If users submits
                 </main> 
                 </div>
              </div> 
-
- 
-
   <script src="js/E-classe-Project.js"></script>
-  <script src="js/toogleSide.js"></script>
-
   <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 

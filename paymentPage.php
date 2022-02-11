@@ -1,14 +1,27 @@
-<?php    
-include 'connect.php';
-if(isset($_POST['submit'])) {
-  
+<?php
 
+include 'connect.php' ;
+
+if(isset($_POST['submit'])) { // If users submits 
+  $Name =             $_POST['Name'] ;
+  $PaymentSchedule =  $_POST['PaymentSchedule'] ; 
+  $BillNumber =       $_POST['BillNumber'] ;
+  $AmountPaid =       $_POST['AmountPaid'] ;
+  $BalanceAmount =    $_POST['BalanceAmount'] ;
+  $Date =             $_POST['Date'];
+
+  $sql = " INSERT INTO `payments`( `Name`, `PaymentSchedule`, `BillNumber`, `AmountPaid`, `BalanceAmount`,`Date`)
+   VALUES ('$Name','$PaymentSchedule','$BillNumber' ,'$AmountPaid','$BalanceAmount','$Date')"  ;
+
+  $result = mysqli_query($con,$sql) ; //
+
+  if(!$result) {
+
+    die(mysqli_error($con)) ;
+
+  }
 }
-
-
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +57,62 @@ if(isset($_POST['submit'])) {
      <div class="container-fluid">
          <div class="d-flex justify-content-between py-3  border-bottom border-5">
          <h2 class="fw-bold">Payment Details</h2>
-         <i class="bi bi-chevron-expand fs-3 text-info"></i>
+          <!-- Button trigger modal -->
+      <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+       ADD NEW PAYMENT
+      </button>
+      
+      <!--             Modal  Start           -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Please fill up </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form   method="POST" >
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Entrez Le nom</label>
+            <input type="text" name="Name" placeholder="Nom..." class="form-control" id="exampleFormControlInput1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Entrez le Calendrier de paiement</label>
+            <input type="text" name="PaymentSchedule" class="form-control" id="exampleFormControlInput1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Entrez Le  Numéro de facture</label>
+            <input type="number" name="BillNumber" class="form-control" id="exampleFormControlInput1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Entrez Le Le montant payé</label>
+            <input type="number" name="AmountPaid" class="form-control" id="exampleFormControlInput1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Entrez Le Montant du solde</label>
+            <input type="number" name="BalanceAmount" class="form-control" id="exampleFormControlInput1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Entrez La date d'affectation</label>
+            <input type="date" name="Date" class="form-control" id="exampleFormControlInput1">
+          </div>
+      
+          <div class="mb-3" style="text-align: center;" >
+      
+            <button type="submit" class="btn btn-info w-100 " name="submit" >Save</button>
+            <p class="error"><?php echo @$error; ?></p>
+            <p class="success"><?php echo @$success; ?></p>
+          </div>
+        </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+            <!--             Modal  End           -->
         </div>
      <div class="overflow-auto tableC">   
     <table class="table table-hover table-striped overflow-scroll">
@@ -58,13 +126,53 @@ if(isset($_POST['submit'])) {
             <td  class="text-secondary p-3" colspan="2">Date</td>  
           </tr>
           <tr>
-              <td class="text-black p-3"></td>
-              <td class="text-black p-3"></td>
-              <td class="text-black p-3"></td>
-              <td class="text-black p-3"></td>
-              <td class="text-black p-3"></td>
-              <td class="text-black p-3"></td>
-              <td class="p-3"><i class="bi bi-eye text-info"></i></td>
+            <?php
+            // Displaying Only  All The Data Stored In Payments Table In MySql
+          $sql = "SELECT * from `payments` " ;
+
+                          $result = mysqli_query($con,$sql);
+
+                          if($result){
+
+                          while($row=mysqli_fetch_assoc($result)) {
+
+                             $Name =               $row['Name'] ;
+                             $PaymentSchedule =    $row['PaymentSchedule'] ;
+                             $BillNumber =         $row['BillNumber'] ;
+                             $AmountPaid =         $row['AmountPaid'] ;
+                             $BalanceAmount =      $row['BalanceAmount'] ; 
+                             $Date =               $row['Date'];
+
+                              echo '
+                              
+                              <tr class="bg-white t-rows">    
+                              
+                              <td class="p-3 align-middle">
+                              '. $Name .'
+                              </td>
+                              <td class="p-3 align-middle">
+                              '. $PaymentSchedule .'
+                              </td>
+                              <td class="p-3 align-middle">
+                              '. $BillNumber .'
+                              </td>
+                              <td class="p-3 align-middle">
+                              '. $AmountPaid .'
+                              </td>
+                              <td class="p-3 align-middle">
+                              '. $BalanceAmount .'
+                              </td>
+                              <td class="p-3 align-middle">
+                              '. $Date .'
+                              </td>
+                              <td class="p-3"><i class="bi bi-eye text-info"></i></td>
+                          </tr>
+                      
+                              
+                              ' ; 
+                            }
+                          }
+                          ?>
           </tr>
           
             

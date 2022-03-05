@@ -126,9 +126,9 @@
         
         </div>
     <script
-      src="js/E-classe-Project.js"
+      src="js/E-classe-Project.js">
      
-    ></script> 
+    </script> 
     <script src="js/toogleSide.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>

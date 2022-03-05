@@ -1,12 +1,12 @@
 <?php
 
-include 'connect.php'; //Connection database file included *
+include 'connect.php'; //Connection database file included 
 
 $id = $_GET['updateid'];
 
 // Display The Values already filled on the ADDStudents's Form
 
-$Fquery = "Select * from `students` where id=$id" ;
+$Fquery = "SELECT * FROM `students` WHERE id=$id" ;
 
 /*  The mysql_query() function executes a query on a MySQL database.
         Arguments :  FirstA(Specifies the MySQL connection) || SecondA(Specifies the SQL query to send)
@@ -14,10 +14,23 @@ $Fquery = "Select * from `students` where id=$id" ;
 
 $Result = mysqli_query($con,$Fquery);
 
-/* The mysqli_fetch_assoc() function fetches a result row as an associative array.
+
+// $Result = { "Name" : "NameValue","Email" : "EmailValue" ,"Phone" : "PhoneValue" ,  "EmailNumber" :"EmailNumber" }
+    
+  
+
+/* The mysqli_ _assoc() function fetches a result row as an associative array.
 Argument : result of the Query
 */
 $row = mysqli_fetch_assoc($Result) ;
+
+/*  $row = array(
+    'Name' => NameValue
+    'Email' => EmailValue
+    'Phone' => PhoneValue
+    'EmailNumber' => EmailNumber
+)
+*/
 
 $Name =         $row['Name'];
 $Email =        $row['Email'];
@@ -29,6 +42,7 @@ $EmailNumber =  $row['EmailNumber'];
         Arguments : One variable to check or multiple but it returns true only if they all exist 
         Return Value : TRUE if variable exists and is not NULL, FALSE otherwise 
         Return Type : boolean */
+
 if (isset($_POST['submit'])) {
 
 $Name =         $_POST['Name'];
@@ -38,17 +52,18 @@ $EmailNumber =  $_POST['EmailNumber'];
 
   // Updating our values to a new ones using this update query 
 
-$Squery = "update `students` set id=$id,Name='$Name',Email='$Email',Phone='$Phone', EmailNumber='$EmailNumber'
-                                                where id=$id";
+$Squery = "UPDATE `students` SET id=$id,Name='$Name',Email='$Email',Phone='$Phone', EmailNumber='$EmailNumber'
+                                                WHERE id=$id";
 
     $result = mysqli_query($con, $Squery);
+
     if ($result) {
 
-        header("location: StudentPage.php");
+        header("location: StudentPage.php"); // it redirects back the user automatically if the form are submited Correcrtly
 
     } else {
 
-        die(mysqli_error($con));
+        die(mysqli_error($con)); 
 
     }
 }

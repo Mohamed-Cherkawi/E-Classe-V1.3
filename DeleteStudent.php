@@ -11,7 +11,7 @@
         $result = mysqli_query($con,$sql) ;
 
         if($result) {
-            //echo "Deleted successfull" ;
+            
             header("location:StudentPage.php") ;
 
         }else {

@@ -1,11 +1,13 @@
 <?php
+    include 'session.php';
+
     include 'connect.php' ;
 
     if(isset($_GET['deleteid'])) { 
         
         $id = $_GET['deleteid'] ;
 
-        $sql = "delete from `students` where id=$id" ;
+        $sql = "DELETE FROM `students` where id=$id" ;
 
 
         $result = mysqli_query($con,$sql) ;

@@ -1,3 +1,16 @@
+<?php
+  session_start();    
+
+function setCookies() {
+
+  setcookie('name',       $_SESSION['Name'] ,    time() + 24*3600) ;   // Setting the cookie name  
+
+  setcookie('email',       $_SESSION['Email'] ,    time() + 24*3600) ;  // Setting the cookie email
+
+  setcookie('password' ,   $_SESSION['Password'],  time() + 24*3600) ;  // Setting the cookie Password
+  
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +24,18 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Login Page</title>
 </head>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background : linear-gradient(69.66deg, #00C1FE 19.39%, #FAFFC1 96.69%);
+  }
+</style>
 <body>
 
-  <div class="d-flex align-items-center justify-content-center vh-100 bg-primary" style="background : linear-gradient(69.66deg, #00C1FE 19.39%, #FAFFC1 96.69%);">
+  <div>
 
     <div class="card rounded-5" style="width: 25rem; border-radius: 15px;">
   
@@ -29,7 +51,6 @@
         
           
 <?php
-    session_start(); // The Session Starts FRom here .
 
 include 'connect.php' ;  // The connection between the software and the database .
 
@@ -43,7 +64,7 @@ include 'connect.php' ;  // The connection between the software and the database
 
   $Password = test_input($_POST['Password']);
   
-  $sql = "SELECT * FROM comptes WHERE Email='$Email' AND Password='$Password' ";
+  $sql = "SELECT * FROM comptes WHERE Email='$Email' AND Password='$Password' "; // Checking the Connection
 
   $result=mysqli_query($con,$sql) ; //  The query sent to the Database
 
@@ -51,23 +72,17 @@ include 'connect.php' ;  // The connection between the software and the database
 
   $count=mysqli_num_rows($result); //  It returns how many rows in our Table .
 
-  $_SESSION['Name'] = $row['Name'] ; // We are Storing the name of the user in a SESSION
-
-  $_SESSION['Password'] = $row['Password'] ; // We are Storing the name of the user in a SESSION
-
-  $_SESSION['Email'] =    $row['Email'] ; // We are Storing the name of the user in a SESSION
-
   if($count == 1){ // it checks if there is one row , THat means that user was found .
 
+  $_SESSION['Name']     =    $row['Name'] ; // We are Storing the name of the user in a SESSION
+
+  $_SESSION['Password'] =    $row['Password'] ; // We are Storing the name of the user in a SESSION
+
+  $_SESSION['Email']    =    $row['Email'] ; // We are Storing the name of the user in a SESSION
+
     if(isset($_POST['remember'])) {  //if users Sayes Remembers Me Create A Cookie for him .
-  
-   setcookie('name',       $_SESSION['Name'] ,    time() + 24*3600) ;   // Setting the cookie name  
-
-   setcookie('email',       $_SESSION['Email'] ,    time() + 24*3600) ;  // Setting the cookie email
-
-   setcookie('password' ,   $_SESSION['Password'],  time() + 24*3600) ;  // Setting the cookie Password
-
-   
+      
+      setCookies() ;
     }
 
     // It redirects the user to the Home Page
@@ -82,10 +97,12 @@ include 'connect.php' ;  // The connection between the software and the database
      
   
 }
+//This function takes a type of data and filter it using this three functions
 function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
+  $data = trim($data); //Remove characters from both sides of a string !!!!!!!
+  $data = stripslashes($data); // Removes if there is some slashes ( / )
+  $data = htmlspecialchars($data); // The htmlspecialchars() function converts some predefined characters to HTML entities.
+
   return $data;
 }
 
@@ -93,7 +110,7 @@ function test_input($data) {
 
             <div class="mb-3 mt-3">
               <label for="email">Email</label>
-              <input type="text" class="form-control" id="email" value="<?php if(isset($_COOKIE['email']))  echo $_COOKIE['email'] ; ?>" name="Email"> 
+              <input type="email" class="form-control" id="email" value="<?php if(isset($_COOKIE['email']))  echo $_COOKIE['email'] ; ?>" name="Email"> 
             </div>
             <div class="mb-3">
               <label for="pwd">Password</label>

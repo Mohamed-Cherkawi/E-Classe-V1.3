@@ -1,6 +1,5 @@
 <?php
 
-
 include 'connect.php';
 
 if (isset($_POST['submit'])) { // If users submits 
@@ -15,6 +14,11 @@ if (isset($_POST['submit'])) { // If users submits
    VALUES ('$Name','$Email',$Phone ,'$EmailNumber','$DateofAdmission')";
 
   $result = mysqli_query($con, $sql); //
+
+  // $numOfRows =mysqli_num_rows($result);
+  // if($numofRows < 1) {
+  //   $errorMessage = "You don't have any students yet" ;
+  // }
 
   if (!$result) {
     die(mysqli_error($con));
@@ -39,14 +43,11 @@ if (isset($_POST['submit'])) { // If users submits
   <link rel="stylesheet" href="css/styleX.css">
   <title>Student Page</title>
 </head>
-<style>
-  <?php include 'Webkit.php'; ?>
-</style>
 
 <body>
   <div class="d-flex" id="wrapper">
 
-    
+
     <?php include 'sidebar.php';
     echo '<!-- Page Content -->
                    <div id="page-content-wrapper" style="background:#FFFFFF">';
@@ -137,6 +138,17 @@ if (isset($_POST['submit'])) { // If users submits
 
               $result = mysqli_query($con, $sql);
 
+              // count students
+              $query_1 = "SELECT COUNT(id) AS 'TotalStudents' FROM `students`";
+              $result_1 = mysqli_query($con, $query_1);
+              $data_1 = mysqli_fetch_assoc($result_1);
+              $TotalStudents = $data_1['TotalStudents'];
+
+              if ($TotalStudents < 1) {
+                echo "<p>No student found !</p>";
+              }
+
+
               if ($result) {
 
                 while ($row = mysqli_fetch_assoc($result)) {
@@ -147,6 +159,7 @@ if (isset($_POST['submit'])) { // If users submits
                   $Phone =           $row['Phone'];
                   $EmailNumber =     $row['EmailNumber'];
                   $DateOfAdmission = $row['DateOfAdmission'];
+
 
                   echo '
                               
@@ -174,7 +187,7 @@ if (isset($_POST['submit'])) { // If users submits
                                
                               </td>
                               <td class="p-3 align-middle" >
-                              <a href="DeleteStudent.php?deleteid=' . $id . '" > <i class="bi bi-trash fs-4 ms-4 text-info"></i></a>
+                              <a href="DeleteStudent.php?deleteid=' . $id . '" onclick="return confirm(`Are You Sure About that?`)"> <i class="bi bi-trash fs-4 ms-4 text-info"></i></a>
                               </td>
                           </tr>
                         <tr>
@@ -199,8 +212,7 @@ if (isset($_POST['submit'])) { // If users submits
   </div>
   </div>
 
-
-
+  
   <script src="js/E-classe-Project.js"></script>
   <script src="js/toogleSide.js"></script>
 

@@ -39,9 +39,6 @@ if(isset($_POST['submit'])) {
   <link rel="stylesheet" href="css/styleX.css">
   <title>Student Page</title>
 </head>
-<style>
-  <?php include 'Webkit.php' ; ?>
-</style>
 
 <body>
 <div class="d-flex" id="wrapper">

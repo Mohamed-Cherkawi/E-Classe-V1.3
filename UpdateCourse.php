@@ -1,6 +1,6 @@
 <?php
-
-include 'connect.php';
+  session_start();    
+  include 'connect.php';
 $id = $_GET['updateid'];
 
 // Display The Values already filled on form

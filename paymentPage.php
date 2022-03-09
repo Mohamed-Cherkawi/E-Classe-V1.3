@@ -1,5 +1,8 @@
 <?php
 
+session_start();    
+
+
 include 'connect.php' ;
 
 if(isset($_POST['submit'])) { // If users submits 
@@ -36,10 +39,6 @@ if(isset($_POST['submit'])) { // If users submits
     <link rel="stylesheet" href="css/styleX.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Page de Payment</title>
-    <style>
-          <?php include 'Webkit.php' ; ?>
-
-</style>
    
 </head>
 

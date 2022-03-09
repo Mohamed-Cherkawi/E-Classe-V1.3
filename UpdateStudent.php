@@ -1,5 +1,8 @@
 <?php
 
+session_start();    
+
+
 include 'connect.php'; //Connection database file included 
 
 $id = $_GET['updateid'];
@@ -52,7 +55,7 @@ $EmailNumber =  $_POST['EmailNumber'];
 
   // Updating our values to a new ones using this update query 
 
-$Squery = "UPDATE `students` SET id=$id,Name='$Name',Email='$Email',Phone='$Phone', EmailNumber='$EmailNumber'
+$Squery = "UPDATE `students` SET Name='$Name',Email='$Email',Phone='$Phone', EmailNumber='$EmailNumber'
                                                 WHERE id=$id";
 
     $result = mysqli_query($con, $Squery);

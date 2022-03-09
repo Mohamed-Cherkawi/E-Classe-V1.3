@@ -1,7 +1,5 @@
     <?php
     session_start();
-
-    
     ?>
 
 
@@ -40,7 +38,4 @@
                 Logout <i class="bi bi-box-arrow-in-right"></i></a>
         </div>
     </div>
-    <?php
-
-    ?>
     <!-- /#sidebar-wrapper -->

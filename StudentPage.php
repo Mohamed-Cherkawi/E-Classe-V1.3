@@ -187,7 +187,7 @@ if (isset($_POST['submit'])) { // If users submits
                                
                               </td>
                               <td class="p-3 align-middle" >
-                              <a href="DeleteStudent.php?deleteid=' . $id . '" onclick="return confirm(`Are You Sure About that?`)"> <i class="bi bi-trash fs-4 ms-4 text-info"></i></a>
+                              <a href="DeleteStudent.php?deleteid=' . $id . '" onclick="return confirm(`Are You Sure ?`)"> <i class="bi bi-trash fs-4 ms-4 text-info"></i></a>
                               </td>
                           </tr>
                         <tr>

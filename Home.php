@@ -2,13 +2,13 @@
 
 include 'connect.php';
 // First Query gives me the total of students using the Count function
-$query_1 = "SELECT COUNT(id) AS 'TotalStudents' FROM `students`";
+$query_1 = "SELECT COUNT(id) AS 'TotalStudents' FROM `students`"; // The count function counts how many line we have on id property
 $result_1 = mysqli_query($con, $query_1);
 $data_1 = mysqli_fetch_assoc($result_1);
 $TotalStudents = $data_1['TotalStudents'];
 
 // Second query gives me the Sum of the Amount Payments using the SUM function
-$query_2 = "SELECT SUM(AmountPaid) AS 'TotalPayments' FROM `payments`";
+$query_2 = "SELECT SUM(AmountPaid) AS 'TotalPayments' FROM `payments`";// The Sum gives the total of the selected column .
 $result_2 = mysqli_query($con, $query_2);
 $data_2 = mysqli_fetch_assoc($result_2);
 $TotalPayments = $data_2['TotalPayments'];

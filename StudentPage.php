@@ -4,8 +4,8 @@ include 'connect.php';
 
 if (isset($_POST['submit'])) { // If users submits 
 
-  $Name =             $_POST['Name'];
-  $Email =            $_POST['Email'];
+  $Name            =  $_POST['Name'];
+  $Email           =  $_POST['Email'];
   $Phone           =  $_POST['Phone'];
   $EmailNumber     =  $_POST['EmailNumber'];
   $DateofAdmission =  $_POST['DateOfAdmission'];
@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) { // If users submits
   $sql = " INSERT INTO `students`( `Name`, `Email`, `Phone`, `EmailNumber`, `DateOfAdmission`)
    VALUES ('$Name','$Email',$Phone ,'$EmailNumber','$DateofAdmission')";
 
-  $result = mysqli_query($con, $sql); //
+  $result = mysqli_query($con, $sql); 
 
   // $numOfRows =mysqli_num_rows($result);
   // if($numofRows < 1) {
@@ -75,7 +75,7 @@ if (isset($_POST['submit'])) { // If users submits
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form method="POST">
+                    <form method="POST" >
                       <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Entrez Le nom d'étudiant</label>
                         <input type="text" name="Name" placeholder="Nom..." class="form-control" id="exampleFormControlInput1">
@@ -134,7 +134,7 @@ if (isset($_POST['submit'])) { // If users submits
               </tr>
               <?php
 
-              $sql = "SELECT * from `students` ";
+              $sql = "SELECT * FROM `students` ";
 
               $result = mysqli_query($con, $sql);
 
@@ -144,7 +144,7 @@ if (isset($_POST['submit'])) { // If users submits
               $data_1 = mysqli_fetch_assoc($result_1);
               $TotalStudents = $data_1['TotalStudents'];
 
-              if ($TotalStudents < 1) {
+              if ($TotalStudents < 1) { // If there is no students it prints message 
                 echo "<p>No student found !</p>";
               }
 

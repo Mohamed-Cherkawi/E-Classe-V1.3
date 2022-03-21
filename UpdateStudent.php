@@ -5,7 +5,7 @@ session_start();
 
 include 'connect.php'; //Connection database file included 
 
-$id = $_GET['updateid'];
+$id = $_GET['updateid'];// Getting the id from the query String .
 
 // Display The Values already filled on the ADDStudents's Form
 

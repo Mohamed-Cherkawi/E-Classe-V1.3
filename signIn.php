@@ -60,11 +60,11 @@ include 'connect.php' ;  // The connection between the software and the database
     and removes Slashes And finnaly changes the string to an HTML Entities .
 
     */
-  $Email = test_input($_POST['Email']);
+  $Email = test_input($_POST['Email']); // filtering the value that comesback from the superglobal and storing it on Email .
 
-  $Password = test_input($_POST['Password']);
+  $Password = test_input($_POST['password']); // filtering the value that comesback from the superglobal and storing it on Password .
   
-  $sql = "SELECT * FROM comptes WHERE Email='$Email' AND Password='$Password' "; // Checking the Connection
+  $sql = "SELECT * FROM users WHERE Email='$Email' AND password='$Password' "; // Checking the account if it is true .
 
   $result=mysqli_query($con,$sql) ; //  The query sent to the Database
 
@@ -76,16 +76,16 @@ include 'connect.php' ;  // The connection between the software and the database
 
   $_SESSION['Name']     =    $row['Name'] ; // We are Storing the name of the user in a SESSION
 
-  $_SESSION['Password'] =    $row['Password'] ; // We are Storing the name of the user in a SESSION
+  $_SESSION['Password'] =    $row['password'] ; // We are Storing the name of the user in a SESSION
 
   $_SESSION['Email']    =    $row['Email'] ; // We are Storing the name of the user in a SESSION
 
     if(isset($_POST['remember'])) {  //if users Sayes Remembers Me Create A Cookie for him .
       
-      setCookies() ;
+      setCookies() ; // Calling the set cookies function .
     }
 
-    // It redirects the user to the Home Page
+    // It redirects the user to the Home Page :
    header("location:Home.php");
 
 
@@ -114,7 +114,7 @@ function test_input($data) {
             </div>
             <div class="mb-3">
               <label for="pwd">Password</label>
-              <input type="password" class="form-control" id="pwd" value="<?php if(isset($_COOKIE['password']))  echo $_COOKIE['password'] ; ?>" name="Password"  maxlength="30" >
+              <input type="password" class="form-control" id="pwd" value="<?php if(isset($_COOKIE['password']))  echo $_COOKIE['password'] ; ?>" name="password"  maxlength="30" >
               </div>
             
             <div class="form-check mb-3">
@@ -128,7 +128,7 @@ function test_input($data) {
           </form>
           <div class="d-flex justify-content-center pt-3">
           <p class="card-text text-secondary" >Forgot your password?</p>
-          <a href=#" style="color:#00C1FE ;">Reset Password</a>
+          <a href="#" style="color:#00C1FE ;">Reset Password</a>
           </div>
         </div>
     </div>
